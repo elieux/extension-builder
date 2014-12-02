@@ -24,18 +24,24 @@ $convertPattern = function($pattern) {
 $patterns = array();
 foreach ($config['patterns'] as $pattern)
 	$patterns[] = $convertPattern($pattern);
-$patterns = "[" . implode(",", $patterns) . "]";
 
 return '
 var { url } = require("sdk/self").data;
+var pagemod = {};
+
+(function() {
+	var window = { pagemod: pagemod };
+	' . file_get_contents($config['files']['background-js']) . '
+}());
 
 require("sdk/page-mod").PageMod({
-	include: ' . $patterns . ',
+	include: [' . implode(",", $patterns) . '],
 	contentScriptFile: [
 		url("include.js"),
 	],
 	contentStyleFile: [
 	],
-	attachTo: ["existing", "top"]
+	attachTo: ["existing", "top"],
+	onAttach: pagemod.onAttach
 });
 ';

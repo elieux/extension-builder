@@ -25,10 +25,11 @@ preg_match_all('~@include\s+(.*)$~m', $file, $matches, PREG_PATTERN_ORDER);
 $config['patterns'] = $matches[1];
 
 $config['outputs'] = array(
-	'ujs' => "{$config['product']}-{$config['version']}.user.js",
-	'xpi' => "{$config['product']}-{$config['version']}.xpi",
-	'crx' => "{$config['product']}-{$config['version']}.crx",
-	'oex' => "{$config['product']}-{$config['version']}.oex",
+	array('ujs', "{$config['product']}-{$config['version']}.user.js"),
+	array('xpi', "{$config['product']}-{$config['version']}.xpi"),
+	array('crx', "{$config['product']}-{$config['version']}.crx"),
+	array('crx', "{$config['product']}-{$config['version']}.nex"),
+	array('oex', "{$config['product']}-{$config['version']}.oex"),
 );
 
 function file_from_template($__file, $config) {
@@ -110,7 +111,7 @@ function build_xpi($file, $config) {
 	zipall($file, "{$config['templateDir']}/xpi", $config);
 }
 
-foreach ($config['outputs'] as $method => $file)
+foreach ($config['outputs'] as list($method, $file))
 {
 	$build = "build_{$method}";
 	$build("{$config['outputDir']}/{$file}", $config);

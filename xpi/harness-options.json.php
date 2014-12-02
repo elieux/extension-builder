@@ -16,6 +16,7 @@ return json_encode(array(
             'requirements' => array(
                 'sdk/page-mod' => 'sdk/page-mod',
                 'sdk/self' => 'sdk/self',
+                'sdk/request' => 'sdk/request',
             ),
             'sectionName' => 'lib',
         )

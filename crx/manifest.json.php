@@ -11,6 +11,10 @@ return json_encode(array(
 			'js' => array('include.js'),
 		),
 	),
+	'background' => array(
+		'scripts' => array('background.js')
+	),
+	'permissions' => array($config['namespace']),
 	'icons' => array(
 		128 => 'icon.png',
 	),
